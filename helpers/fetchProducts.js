@@ -1,5 +1,5 @@
 const fetchProducts = () => {
-  // seu código aqui
+  console.log('oi');
 };
 
 if (typeof module !== 'undefined') {
@@ -7,3 +7,4 @@ if (typeof module !== 'undefined') {
     fetchProducts,
   };
 }
+fetchProducts();
