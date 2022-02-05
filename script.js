@@ -21,7 +21,7 @@ function createCustomElement(element, className, innerText) {
 // }
 // const product = objProduct(dataJson);
 
-fetchProducts('computador');
+// fetchProducts('computador');
 
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
@@ -39,7 +39,7 @@ function getSkuFromProductItem(item) {
 }
 
 function cartItemClickListener(event) {
-  // coloque seu código aqui
+  event.target.remove();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
