@@ -6,10 +6,10 @@ const fetchProducts = async (searchValue) => {
       if (!searchValue || urlMontada.endsWith('undefined')) {
         throw new Error('You must provide an url');
       }
-    return dataJson;
-  } catch (error) {
+      return dataJson;
+    } catch (error) {
       throw error.message;
-  }
+    }
 };
 if (typeof module !== 'undefined') {
   module.exports = {
