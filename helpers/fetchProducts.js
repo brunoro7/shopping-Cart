@@ -1,29 +1,16 @@
-function objProduct(dataJson) {
-  return {
-    sku: dataJson.results[0].id,
-    name: dataJson.results[0].title,
-    image: dataJson.results[0].thumbnail,
-  };
-}
-
 const fetchProducts = async (searchValue) => {
-  const urlMontada = `https://api.mercadolibre.com/sites/MLB/search?q=${searchValue}`;
   try {
-    if (!searchValue || searchValue.endsWith('undefined')) {
-      throw new Error('You must provide an url');
-    }
+    const urlMontada = `https://api.mercadolibre.com/sites/MLB/search?q=${searchValue}`;
+    const apiResponse = await fetch(urlMontada);
+    const dataJson = await apiResponse.json();
+      if (!searchValue || urlMontada.endsWith('undefined')) {
+        throw new Error('You must provide an url');
+      }
+    return dataJson;
   } catch (error) {
-    throw error.message;
+      throw error.message;
   }
-
-  const apiResponse = await fetch(urlMontada);
-
-  const dataJson = await apiResponse.json();
-  const product = objProduct(dataJson);
-
-  return dataJson;
 };
-
 if (typeof module !== 'undefined') {
   module.exports = {
     fetchProducts,

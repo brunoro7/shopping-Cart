@@ -12,6 +12,17 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+// function objProduct(dataJson) {
+//   return {
+//     sku: dataJson.results[0].id,
+//     name: dataJson.results[0].title,
+//     image: dataJson.results[0].thumbnail,
+//   };
+// }
+// const product = objProduct(dataJson);
+
+fetchProducts('computador');
+
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
@@ -20,7 +31,6 @@ function createProductItemElement({ sku, name, image }) {
   section.appendChild(createCustomElement('span', 'item__title', name));
   section.appendChild(createProductImageElement(image));
   section.appendChild(createCustomElement('button', 'item__add', 'Adicionar ao carrinho!'));
-
   return section;
 }
 
