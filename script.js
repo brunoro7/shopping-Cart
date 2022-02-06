@@ -12,6 +12,12 @@ function createCustomElement(element, className, innerText) {
   return e;
 }
 
+const chamandoData = async () => {
+  const dataJson = await fetchProducts('computador');
+  console.log(dataJson.results);
+};
+chamandoData();
+
 function createProductItemElement({ sku, name, image }) {
   const section = document.createElement('section');
   section.className = 'item';
