@@ -9,8 +9,8 @@ const fetchItem = async (itemID) => {
 
     return dataJsonId;
   } catch (error) {
-      return error;
-    }
+    return error;
+  }
 };
 // fetchItem('MLB1615760527');
 
