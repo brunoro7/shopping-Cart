@@ -1,5 +1,5 @@
 const sectionItems = document.querySelector('section .items');
-const cartItems = document.querySelector('.cart__items');
+const cartItems = document.querySelector('ol.cart__items');
 // const buttonClearCart = document.querySelector('.empty-cart');
 // console.log(buttonClearCart);
 
@@ -82,6 +82,13 @@ const creatObjProducts = async () => {
   recebeCadaEventAdd();
 };
 
+function carregaCart() {
+  if (localStorage.getItem('cartItems')) {
+    cartItems.innerHTML = getSavedCartItems('cartItems');
+  }
+}
+
 window.onload = () => {
   creatObjProducts();
+  carregaCart();
 };
