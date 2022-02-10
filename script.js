@@ -1,7 +1,11 @@
 const sectionItems = document.querySelector('section .items');
 const cartItems = document.querySelector('ol.cart__items');
-// const buttonClearCart = document.querySelector('.empty-cart');
-// console.log(buttonClearCart);
+const buttonClearCart = document.querySelector('.empty-cart');
+
+function clearCart() {
+  cartItems.innerHTML = '';
+}
+buttonClearCart.addEventListener('click', clearCart);
 
 function createProductImageElement(imageSource) {
   const img = document.createElement('img');

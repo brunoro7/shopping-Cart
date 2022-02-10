@@ -127,10 +127,11 @@ body {
   color: white;
 }
 
+/** alterei de collum para row, para o botão não ser emcoberto pela lista */
 .cart {
   display: flex;
   flex-basis: 32%;
-  flex-flow: column wrap;
+  flex-flow: row wrap;
   background-color: rgb(241, 241, 238);
   height: 100vh;
 }
