@@ -2,9 +2,15 @@ const sectionItems = document.querySelector('section .items');
 const cartItems = document.querySelector('ol.cart__items');
 const buttonClearCart = document.querySelector('.empty-cart');
 
+function chamadaSaveCart() {
+  const listaProdutosCartAtual = document.getElementsByClassName('cart__items')[0].innerHTML;
+  
+  saveCartItems(listaProdutosCartAtual);
+}
+
 function clearCart() {
   cartItems.innerHTML = '';
-  saveCartItems();
+  chamadaSaveCart();
 }
 buttonClearCart.addEventListener('click', clearCart);
 
@@ -41,7 +47,7 @@ function getSkuFromProductItem(item) {
 
 function cartItemClickListener(event) {
   event.target.remove('li.cart__item');
-  saveCartItems();
+  chamadaSaveCart();
 }
 
 function createCartItemElement({ sku, name, salePrice }) {
@@ -51,6 +57,8 @@ function createCartItemElement({ sku, name, salePrice }) {
   li.addEventListener('click', cartItemClickListener);
   return li;
 }
+
+/** Meu problema no momento, está no clique do botao, ele não salva desde o primeiro click, pois, esta fazendo o append primeiro, preciso encadear o meu return do addObjProductCar com o chamadaSaveCart */
 
 const addObjProductCart = async (event) => {
   const itemID = event.target.parentElement.id;
@@ -63,7 +71,7 @@ const addObjProductCart = async (event) => {
   };
   // console.log(dataJsonId);
   // console.log(createCartItemElement(objProductId));
-  saveCartItems();
+
   return cartItems.appendChild(createCartItemElement(objProductId));
 };
 
@@ -74,7 +82,20 @@ function recebeCadaEventAdd() {
   }
 }
 
+function addLoadingText() {
+  const loadingText = document.createElement('p');
+  loadingText.className = 'loading';
+  loadingText.innerText = 'carregando...';
+  sectionItems.appendChild(loadingText);
+}
+
+function removeLoadingText() {
+  const loadingText = document.querySelector('p.loading');
+  sectionItems.removeChild(loadingText);
+}
+
 const creatObjProducts = async () => {
+  addLoadingText();
   const dataJson = await fetchProducts('computador');
   const listaDeProdutos = dataJson.results.map((resultDataJson) => resultDataJson);
   listaDeProdutos.map((cadaProduto) => {
@@ -86,18 +107,22 @@ const creatObjProducts = async () => {
     // console.log(createProductItemElement(objProduct));
     return sectionItems.appendChild(createProductItemElement(objProduct));
   });
+  removeLoadingText();
   recebeCadaEventAdd();
 };
 
 function loadCartItems() {
-  const cartItemsLoaded = document.getElementsByClassName('.cart__items');
-  console.log(cartItemsLoaded);
-  getSavedCartItems();
+  const chamadaDoGetSaved = getSavedCartItems();
+  const listaCartAtual = document.getElementsByClassName('cart__items')[0];
+  // listaCartAtual = chamadaDoGetSaved;
+  Array.from(listaCartAtual.children).forEach((productCart) => {
+    productCart.addEventListener('click', cartItemClickListener);
+  });
+  console.log(chamadaDoGetSaved);
+  console.log(listaCartAtual);
 }
 
 window.onload = () => {
   creatObjProducts(); 
   loadCartItems();
 };
-
-// storage.getItem('trybe')
