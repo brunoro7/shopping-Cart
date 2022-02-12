@@ -58,8 +58,6 @@ function createCartItemElement({ sku, name, salePrice }) {
   return li;
 }
 
-/** Meu problema no momento, está no clique do botao, ele não salva desde o primeiro click, pois, esta fazendo o append primeiro, preciso encadear o meu return do addObjProductCar com o chamadaSaveCart */
-
 const addObjProductCart = async (event) => {
   const itemID = event.target.parentElement.id;
 
@@ -72,7 +70,8 @@ const addObjProductCart = async (event) => {
   // console.log(dataJsonId);
   // console.log(createCartItemElement(objProductId));
 
-  return cartItems.appendChild(createCartItemElement(objProductId));
+  cartItems.appendChild(createCartItemElement(objProductId));
+  chamadaSaveCart();
 };
 
 function recebeCadaEventAdd() {
@@ -112,14 +111,14 @@ const creatObjProducts = async () => {
 };
 
 function loadCartItems() {
-  const chamadaDoGetSaved = getSavedCartItems();
-  const listaCartAtual = document.getElementsByClassName('cart__items')[0];
-  // listaCartAtual = chamadaDoGetSaved;
-  Array.from(listaCartAtual.children).forEach((productCart) => {
-    productCart.addEventListener('click', cartItemClickListener);
+  const chamadaGetSaved = getSavedCartItems('cartItems');
+  let listaCartAtual = document.getElementsByClassName('cart__items')[0];
+  listaCartAtual = chamadaGetSaved;
+  // console.log(listaCartAtual);
+  cartItems.innerHTML = (listaCartAtual);
+  Array.from(cartItems.children).forEach((item) => {
+    item.addEventListener('click', cartItemClickListener);
   });
-  console.log(chamadaDoGetSaved);
-  console.log(listaCartAtual);
 }
 
 window.onload = () => {
